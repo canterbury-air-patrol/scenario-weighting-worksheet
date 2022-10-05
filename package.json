@@ -4,7 +4,7 @@
   "description": "SAR Scenario Weighting Worksheet",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild sww.js --bundle --loader:.js=jsx --outdir=out",
+    "build": "esbuild sww.js --bundle --loader:.js=jsx --minify --outdir=out",
     "check": "eslint *.js",
     "start": "http-server -a localhost -p 8000",
     "test": "echo \"Error: no test specified\" && exit 1"

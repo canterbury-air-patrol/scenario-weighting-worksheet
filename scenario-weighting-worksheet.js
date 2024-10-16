@@ -169,7 +169,7 @@ export class ScenarioWeightingWorksheet extends React.Component {
   addParticipant () {
     this.setState(function (oldState) {
       oldState.participants.push('')
-      const rankings = oldState.scenarios.map(_ => (0))
+      const rankings = oldState.scenarios.map(() => (0))
       oldState.rankings.push(rankings)
       return oldState
     })

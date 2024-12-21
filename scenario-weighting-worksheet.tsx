@@ -1,9 +1,12 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 
-class ScenarioWeightingTitleBlock extends React.Component {
+interface ScenarioWeightingTitleBlockProps {
+  operationName: string
+}
+
+class ScenarioWeightingTitleBlock extends React.Component<ScenarioWeightingTitleBlockProps, never> {
   render() {
     return (
       <div>
@@ -12,7 +15,7 @@ class ScenarioWeightingTitleBlock extends React.Component {
             <tr>
               <th>Operation Name:</th>
               <td>
-                <input type="text"></input>
+                <input type="text" value={this.props.operationName}></input>
               </td>
               <th>Time:</th>
               <td>
@@ -35,22 +38,25 @@ class ScenarioWeightingTitleBlock extends React.Component {
     )
   }
 }
-ScenarioWeightingTitleBlock.propTypes = {
-  operationName: PropTypes.string.isRequired
+
+interface ScenarioWeightingScenarioNamesProps {
+  scenarios: string[]
+  addScenario: () => void
+  updateScenarioName: (id: number, value: string) => void
 }
 
-class ScenarioWeightingScenarioNames extends React.Component {
-  constructor(props) {
+class ScenarioWeightingScenarioNames extends React.Component<ScenarioWeightingScenarioNamesProps, never> {
+  constructor(props: ScenarioWeightingScenarioNamesProps) {
     super(props)
 
     this.updateScenarioName = this.updateScenarioName.bind(this)
   }
 
-  updateScenarioName(event) {
+  updateScenarioName(event: React.ChangeEvent<HTMLInputElement>) {
     const target = event.target
     const value = target.value
     const id = target.id
-    this.props.updateScenarioName(id, value)
+    this.props.updateScenarioName(Number(id), value)
   }
 
   render() {
@@ -78,7 +84,7 @@ class ScenarioWeightingScenarioNames extends React.Component {
           <tbody>
             {scenarios}
             <tr key="new">
-              <td colSpan="2">
+              <td colSpan={2}>
                 <Button type="button" onClick={this.props.addScenario}>
                   Add Scenario
                 </Button>
@@ -90,25 +96,28 @@ class ScenarioWeightingScenarioNames extends React.Component {
     )
   }
 }
-ScenarioWeightingScenarioNames.propTypes = {
-  scenarios: PropTypes.array.isRequired,
-  addScenario: PropTypes.func.isRequired,
-  updateScenarioName: PropTypes.func.isRequired
+
+interface ScenarioWeightingWeightingsProps {
+  updateRanking: (participant: number, scenario: number, ranking: number) => void
+  addParticipant: () => void
+  participants: string[]
+  scenarios: string[]
+  rankings: number[][]
 }
 
-class ScenarioWeightingWeightings extends React.Component {
-  constructor(props) {
+class ScenarioWeightingWeightings extends React.Component<ScenarioWeightingWeightingsProps, never> {
+  constructor(props: ScenarioWeightingWeightingsProps) {
     super(props)
 
     this.updateRanking = this.updateRanking.bind(this)
   }
 
-  updateRanking(event) {
+  updateRanking(event: React.ChangeEvent<HTMLInputElement>) {
     const target = event.target
-    const value = target.type === 'checkbox' ? target.selected : target.value
+    const value = target.value
     const id = target.id
     const components = id.split('_')
-    this.props.updateRanking(components[0], components[1], Number(value))
+    this.props.updateRanking(Number(components[0]), Number(components[1]), Number(value))
   }
 
   render() {
@@ -165,16 +174,16 @@ class ScenarioWeightingWeightings extends React.Component {
     )
   }
 }
-ScenarioWeightingWeightings.propTypes = {
-  scenarios: PropTypes.array.isRequired,
-  participants: PropTypes.array.isRequired,
-  rankings: PropTypes.array.isRequired,
-  updateRanking: PropTypes.func.isRequired,
-  addParticipant: PropTypes.func.isRequired
+
+interface ScenarioWeightingWorksheetState {
+  operationName: string
+  scenarios: string[]
+  participants: string[]
+  rankings: number[][]
 }
 
-export class ScenarioWeightingWorksheet extends React.Component {
-  constructor(props) {
+export class ScenarioWeightingWorksheet extends React.Component<object, ScenarioWeightingWorksheetState> {
+  constructor(props: object) {
     super(props)
 
     this.state = {
@@ -209,14 +218,14 @@ export class ScenarioWeightingWorksheet extends React.Component {
     })
   }
 
-  updateScenarioName(scenarioId, name) {
+  updateScenarioName(scenarioId: number, name: string) {
     this.setState(function (oldState) {
       oldState.scenarios[scenarioId] = name
       return oldState
     })
   }
 
-  updateRanking(participant, scenario, ranking) {
+  updateRanking(participant: number, scenario: number, ranking: number) {
     this.setState(function (oldState) {
       oldState.rankings[participant][scenario] = ranking
       return oldState

@@ -2,10 +2,16 @@
   "name": "@canterbury-air-patrol/scenario-weighting-worksheet",
   "version": "0.1.1",
   "description": "SAR Scenario Weighting Worksheet",
-  "main": "index.js",
+  "main": "dist/scenario-weighting-worksheet.js",
+  "module": "dist/scenario-weighting-worksheet.mjs",
+  "types": "dist/scenario-weighting-worksheet.d.ts",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
-    "build": "esbuild sww.js --bundle --loader:.js=jsx --minify --outdir=out",
-    "check": "eslint *.js && prettier -c *.js",
+    "build": "esbuild sww.tsx --bundle --minify --outdir=out",
+    "bundle": "tsup",
+    "check": "eslint *.tsx && prettier -c *.tsx",
     "start": "http-server -a localhost -p 8000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -32,11 +38,15 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.12.0",
+    "@types/react-dom": "^19.0.2",
     "esbuild": "~0.24.0",
     "eslint": "^9.12.0",
     "eslint-plugin-react": "^7.37.1",
     "globals": "^15.11.0",
     "http-server": "~14.1.1",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.1"
   }
 }

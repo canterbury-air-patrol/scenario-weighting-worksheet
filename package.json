@@ -1,6 +1,6 @@
 {
   "name": "@canterbury-air-patrol/scenario-weighting-worksheet",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "description": "SAR Scenario Weighting Worksheet",
   "main": "dist/scenario-weighting-worksheet.js",
   "module": "dist/scenario-weighting-worksheet.mjs",

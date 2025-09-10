@@ -227,8 +227,14 @@ export class ScenarioWeightingWorksheet extends React.Component<object, Scenario
 
   updateRanking(participant: number, scenario: number, ranking: number) {
     this.setState(function (oldState) {
-      oldState.rankings[participant][scenario] = ranking
-      return oldState
+      if (participant < 0 || scenario < 0 || participant >= oldState.rankings.length || scenario >= oldState.scenarios.length) {
+        return oldState
+      }
+      const newRankings = oldState.rankings.map((row, pidx) => (pidx === participant ? row.map((value, sidx) => (sidx === scenario ? ranking : value)) : row))
+      return {
+        ...oldState,
+        rankings: newRankings
+      }
     })
   }
 
